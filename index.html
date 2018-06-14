@@ -6,9 +6,45 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Quadratic Eq. Solver</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!--navbar-->
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><span class="icon1"><i class="fas fa-cogs"></i></span> Quadratic Equation Solver</a>
+      </nav>
+  
+  <!--content-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 border1 content1">
+        <p class="p1 bg-dark">Solve Your Quadratic Equation here...</p>
+        <form>
+          <div class="form-group">
+            <label for="input-a"><strong>a</strong>x<sup>2</sup>+bx+c</label>
+            <input type="text" class="form-control" id="input-a" aria-describedby="a" placeholder="a">
+          </div>
+          <div class="form-group">
+            <label for="input-b">ax<sup>2</sup>+<strong>b</strong>x+c</label>
+            <input type="text" class="form-control" id="input-b" aria-describedby="b" placeholder="b">
+          </div>
+          <div class="form-group">
+            <label for="input-c">ax<sup>2</sup>+bx+<strong>c</strong></label>
+            <input type="text" class="form-control" id="input-c" aria-describedby="c" placeholder="c">
+          </div>
+          <button type="submit" class="btn btn-dark">Find the roots</button>
+        </form>
+      </div>
+      <div class="col-md-6 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 border1 content1">
+        <p class="p1 bg-dark">Watch Your Quadratic Equation here...</p>
+      </div>
+    </div>
+  </div>
+
 
   <script src="main.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
