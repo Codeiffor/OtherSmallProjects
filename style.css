@@ -17,11 +17,16 @@ body{
 .content1{
   margin-top:5px;
   background:rgb(228, 228, 228);
+  margin-bottom:3px;
 }
 .border1{
   border:1px black solid;
   padding-bottom:10px;
   width:100%;
+}
+.border2{
+  border:1px black solid;
+  padding:0 10px;
 }
 .strong1{
   color:blue;
