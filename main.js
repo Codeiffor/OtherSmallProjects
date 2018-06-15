@@ -6,18 +6,7 @@ var root1;
 var root2;
 var res=document.querySelector("#result");
 var box1=res.innerHTML;
-var str;
 
-var my_graph=document.getElementById("my_graph");
-function graphRefresh(){
-  function g(m){
-      my_graph.contentWindow.postMessage(m,"http://graph.tk");
-  };
-  str="add:"+a+"*x^2+"+b+"*x+"+c;
-  g("empty");
-  g(str);
-  g("center:0,0");
-}
 
 function findRoots(){
   a=parseInt(document.querySelector("#input-a").value);
@@ -49,8 +38,6 @@ function findRoots(){
   document.querySelector("#input-a").value=a;
   document.querySelector("#input-b").value=b;
   document.querySelector("#input-c").value=c;
-
-  graphRefresh();
 }
 
 

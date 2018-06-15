@@ -23,36 +23,25 @@
     <div class="row">
 
       <!--find roots-->
-      <div class="col-md-6 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 border1 content1"id="result">
+      <div class="offset-sm-2 offset-1 col-sm-8 col-10 border1 content1"id="result">
         <p class="p1 bg-dark">Solve Your Quadratic Equation here...</p>
         <form>
           <div class="form-group">
             <label for="input-a"><strong class="strong1">a</strong>x<sup>2</sup>+bx+c</label>
-            <input type="text" class="form-control" id="input-a" aria-describedby="a" value="1" placeholder="a">
+            <input type="text" class="form-control" id="input-a" aria-describedby="a" placeholder="a">
           </div>
           <div class="form-group">
             <label for="input-b">ax<sup>2</sup>+<strong class="strong1">b</strong>x+c</label>
-            <input type="text" class="form-control" id="input-b" aria-describedby="b"value="3" placeholder="b">
+            <input type="text" class="form-control" id="input-b" aria-describedby="b" placeholder="b">
           </div>
           <div class="form-group">
             <label for="input-c">ax<sup>2</sup>+bx+<strong class="strong1">c</strong></label>
-            <input type="text" class="form-control" id="input-c" aria-describedby="c"value="1" placeholder="c">
+            <input type="text" class="form-control" id="input-c" aria-describedby="c"placeholder="c">
           </div>
           <button type="submit" class="btn btn-outline-dark" onclick="findRoots()">Find the roots</button>
         </form>
       </div>
-
-      <!--graph-->
-      <div class="col-md-6 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 border1 content1">
-        <p class="p1 bg-dark">Watch Your Quadratic Equation here...</p>
-        <div class="embed-responsive embed-responsive-1by1 border2">
-          <iframe class="embed-responsive-item" src="http://graph.tk/" id="my_graph"></iframe>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="container text-center">
-    Created by: Siddhartha Trivedi | Graph api: http://graph.tk/about/api.html
   </div>
 
   <script src="main.js"></script>

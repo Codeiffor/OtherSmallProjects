@@ -15,7 +15,7 @@ body{
   color:white;
 }
 .content1{
-  margin-top:5px;
+  margin-top:20px;
   background:rgb(228, 228, 228);
   margin-bottom:3px;
 }
@@ -23,10 +23,6 @@ body{
   border:1px black solid;
   padding-bottom:10px;
   width:100%;
-}
-.border2{
-  border:1px black solid;
-  padding:0 10px;
 }
 .strong1{
   color:blue;
