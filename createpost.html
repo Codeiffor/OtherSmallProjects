@@ -41,13 +41,24 @@
         .formatButtons:hover{
             border:1px solid lightgray;
         }
+        .socialMedia{
+            float:right;
+            margin-right:10px;
+        }
     </style>
 </head>
+<!-- =========================================================================================== -->
 <body>
     
     <!-- page -->
+    <div class="socialMedia">
+        <a href="#"><img src="image/icon-facebook.svg"  height="30px"alt="social-media-icon"><br></a>
+        <a href="#"><img src="image/icon-google.svg"    height="30px"alt="social-media-icon"><br></a>
+        <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
+        <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
+    </div>
     <div class="container">
-        <div class="mx-auto pt-5 postBox">
+        <div class="mt-5 postBox">
             <input id="title" contenteditable="true" placeholder="Title"></input>
             <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
             <button id='italic' type="button" class="formatButtons"><em>I</em></button>
@@ -57,8 +68,12 @@
     <!-- /page -->
 
 
+<!-- ============================================================================================ -->
+
     <!-- scripts -->
     <script>
+        // do NOT touch this code unless you are absolutely sure what you are doing!
+
         var b=document.querySelector('#bold');
         var i=document.querySelector('#italic');
         var p=document.querySelector('#post');
