@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Siddhartha Trivedi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Node</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+        .postBox{
+            width:60%;
+            margin:auto;
+        }
+        #title{
+            border:2px lightgray solid;
+            height: 50px;
+            padding:0.5em;
+            width:100%;
+            font-size: 1.2em;
+            font-weight: bold;
+            outline: none;
+        }
+        #post{
+            border:2px lightgray solid;
+            min-height: 300px;
+            padding:1em;
+            outline:none;
+        }
+        .formatButtons{
+            background:white;
+            border:none;
+            margin:10px 0;
+            width:30px;
+            border:1px solid white;
+        }
+        .selected{
+            color:rgb(0, 183, 255);
+            border:1px solid lightgray;
+        }
+        .formatButtons:hover{
+            border:1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- page -->
+    <div class="container">
+        <div class="mx-auto pt-5 postBox">
+            <input id="title" contenteditable="true" placeholder="Title"></input>
+            <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
+            <button id='italic' type="button" class="formatButtons"><em>I</em></button>
+            <div id="post"contenteditable="true"></div>
+        </div>
+    </div>
+    <!-- /page -->
+
+
+    <!-- scripts -->
+    <script>
+        var b=document.querySelector('#bold');
+        var i=document.querySelector('#italic');
+        var p=document.querySelector('#post');
+        var title=document.querySelector('#title');
+
+        p.focus();
+        var anchorNode=window.getSelection().anchorNode;
+        var anchorOffset=0;
+        var focusNode=window.getSelection().anchorNode;
+        var focusOffset=0;
+        title.focus();
+        
+        //buttons
+        var postBlur=false;
+        p.addEventListener('blur',()=>{
+            setTimeout(()=>{
+                if(b==document.activeElement||i==document.activeElement){
+                    postBlur=false;
+                }
+                else{
+                    postBlur=true;
+                    console.log(postBlur);
+                }
+            },0);
+        });
+        b.addEventListener('click',function(){
+            if(postBlur)
+                caretPosition();
+            p.focus();
+            b.classList.toggle('selected');
+            document.execCommand('bold');
+        });
+        i.addEventListener('click',function(){
+            if(postBlur)
+                caretPosition();
+            p.focus();
+            i.classList.toggle('selected');
+            document.execCommand('italic');
+        });
+        function caretPosition(){
+            var s=window.getSelection();
+            s.collapse(anchorNode,anchorOffset);
+            s.extend(focusNode,focusOffset);
+            postBlur=false;
+        }
+
+        //post
+        p.addEventListener('keydown',buttonSelection);
+        p.addEventListener('focus',buttonSelection);
+        p.addEventListener('click',buttonSelection);
+        function buttonSelection(e){
+            setTimeout(() => {
+            if(document.queryCommandState("bold"))
+                b.classList.toggle('selected',true);
+            else
+                b.classList.toggle('selected',false);
+            if(document.queryCommandState("italic"))
+                i.classList.toggle('selected',true);
+            else
+                i.classList.toggle('selected',false);
+            
+            var s=window.getSelection();
+            anchorNode=s.anchorNode;
+            anchorOffset=s.anchorOffset;
+            focusNode=s.focusNode;
+            focusOffset=s.focusOffset;
+            console.log(anchorNode,anchorOffset,focusNode,focusOffset);
+            },10);
+            if(e){
+                if(e.which == 66 && e.ctrlKey){
+                    b.classList.toggle('selected');
+                }
+                if(e.which == 73 && e.ctrlKey){
+                    i.classList.toggle('selected');
+                }
+            }
+        }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- /scripts -->
+</body>
+</html>
