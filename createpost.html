@@ -5,12 +5,19 @@
     <meta name="author" content="Siddhartha Trivedi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Node</title>
+    <title>Create Post</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <style>
+        body{
+            background: linear-gradient(to right,blue,red);
+        }
         .postBox{
             width:60%;
             margin:auto;
+            border:1px white solid;
+            border-radius: 0.5em;
+            background: white;
+            padding:2em;
         }
         #title{
             border:2px lightgray solid;
@@ -29,10 +36,11 @@
         }
         .formatButtons{
             background:white;
-            border:none;
             margin:10px 0;
             width:30px;
             border:1px solid white;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
         }
         .selected{
             color:rgb(0, 183, 255);
@@ -42,8 +50,17 @@
             border:1px solid lightgray;
         }
         .socialMedia{
+            background: white;
+            padding:0.2em;
+            border-radius: 0.4em;
             float:right;
             margin-right:10px;
+        }
+        .heading1{
+            color:white;
+        }
+        .linkInput{
+            display:none
         }
     </style>
 </head>
@@ -57,11 +74,22 @@
         <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
         <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
     </div>
-    <div class="container">
-        <div class="mt-5 postBox">
+    
+    <div class="container mainBox mt-5">
+        <h3 class="heading1 text-center">Share Your Experience With Us...</h3>
+        <div class="postBox">
             <input id="title" contenteditable="true" placeholder="Title"></input>
-            <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
-            <button id='italic' type="button" class="formatButtons"><em>I</em></button>
+            <div class="row">
+                <div class="col-4">
+                    <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
+                    <button id='italic' type="button" class="formatButtons"><em>I</em></button>
+                </div>
+                <div class="col-8 text-right">
+                    <input type="text" class="linkInput" placeholder="Enter Link Here">
+                    <button id='addLink' type="button" class="formatButtons"><img src="image/icon-addlink.svg" height="23px"alt="social-media-icon"></button>
+                    <button id='imageUpload' type="button" class="formatButtons"><img src="image/icon-camera.svg"   height="27px"alt="social-media-icon"></button>
+                </div>
+            </div>
             <div id="post"contenteditable="true"></div>
         </div>
     </div>
@@ -70,16 +98,19 @@
 
 <!-- ============================================================================================ -->
 
+
     <!-- scripts -->
     <script>
         // do NOT touch this code unless you are absolutely sure what you are doing!
 
-        var b=document.querySelector('#bold');
-        var i=document.querySelector('#italic');
-        var p=document.querySelector('#post');
+        var bold=document.querySelector('#bold');
+        var italic=document.querySelector('#italic');
+        var post=document.querySelector('#post');
         var title=document.querySelector('#title');
+        var addLink=document.querySelector('#addLink');
+        var linkInput=document.querySelector('.linkInput');
 
-        p.focus();
+        post.focus();
         var anchorNode=window.getSelection().anchorNode;
         var anchorOffset=0;
         var focusNode=window.getSelection().anchorNode;
@@ -88,9 +119,9 @@
         
         //buttons
         var postBlur=false;
-        p.addEventListener('blur',()=>{
+        post.addEventListener('blur',()=>{
             setTimeout(()=>{
-                if(b==document.activeElement||i==document.activeElement){
+                if(bold==document.activeElement||italic==document.activeElement){
                     postBlur=false;
                 }
                 else{
@@ -99,18 +130,18 @@
                 }
             },0);
         });
-        b.addEventListener('click',function(){
+        bold.addEventListener('click',function(){
             if(postBlur)
                 caretPosition();
-            p.focus();
-            b.classList.toggle('selected');
+            post.focus();
+            bold.classList.toggle('selected');
             document.execCommand('bold');
         });
-        i.addEventListener('click',function(){
+        italic.addEventListener('click',function(){
             if(postBlur)
                 caretPosition();
-            p.focus();
-            i.classList.toggle('selected');
+            post.focus();
+            italic.classList.toggle('selected');
             document.execCommand('italic');
         });
         function caretPosition(){
@@ -121,19 +152,19 @@
         }
 
         //post
-        p.addEventListener('keydown',buttonSelection);
-        p.addEventListener('focus',buttonSelection);
-        p.addEventListener('click',buttonSelection);
+        post.addEventListener('keydown',buttonSelection);
+        post.addEventListener('focus',buttonSelection);
+        post.addEventListener('click',buttonSelection);
         function buttonSelection(e){
             setTimeout(() => {
             if(document.queryCommandState("bold"))
-                b.classList.toggle('selected',true);
+                bold.classList.toggle('selected',true);
             else
-                b.classList.toggle('selected',false);
+                bold.classList.toggle('selected',false);
             if(document.queryCommandState("italic"))
-                i.classList.toggle('selected',true);
+                italic.classList.toggle('selected',true);
             else
-                i.classList.toggle('selected',false);
+                italic.classList.toggle('selected',false);
             
             var s=window.getSelection();
             anchorNode=s.anchorNode;
@@ -144,13 +175,32 @@
             },10);
             if(e){
                 if(e.which == 66 && e.ctrlKey){
-                    b.classList.toggle('selected');
+                    bold.classList.toggle('selected');
                 }
                 if(e.which == 73 && e.ctrlKey){
-                    i.classList.toggle('selected');
+                    italic.classList.toggle('selected');
                 }
             }
         }
+        // ----------------------------------------
+        
+        addLink.addEventListener('click',()=>{
+            let temp=linkInput.style.display;
+            if(temp=='inline'){
+                if(linkInput.value){
+                    post.focus();
+                    caretPosition();
+                    post.focus();
+                    document.execCommand('createLink',true,linkInput.value);
+                }
+                linkInput.value='';
+                linkInput.style.display='none';
+            }
+            if(temp==''||temp=='none'){
+                linkInput.style.display='inline';
+                linkInput.focus();
+            }
+        });
         </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
