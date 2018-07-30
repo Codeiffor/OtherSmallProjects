@@ -73,6 +73,9 @@
         .linkInput{
             display:none
         }
+        .selectedTextPost{
+            background: lightgray;
+        }
     </style>
 </head>
 <!-- =========================================================================================== -->
@@ -213,6 +216,16 @@
             }
             if(temp==''||temp=='none'){
                 linkInput.style.display='inline';
+                s=document.getSelection();
+                var range = s.getRangeAt(0);
+                var newNode = document.createElement("span");
+                newNode.setAttribute('class','selectedTextPost');
+                range.surroundContents(newNode);
+                var s=window.getSelection();
+                anchorNode=s.anchorNode;
+                anchorOffset=s.anchorOffset;
+                focusNode=s.focusNode;
+                focusOffset=s.focusOffset;
                 linkInput.focus();
             }
         });
