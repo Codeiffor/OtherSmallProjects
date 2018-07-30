@@ -238,7 +238,13 @@
                 caretPosition();
                 post.focus();
                 document.execCommand('createLink',true,linkInput.value);
-                document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+document.getSelection().focusNode.nodeValue+'</span></a>&nbsp;');
+                var linkValue=document.getSelection().focusNode.nodeValue;
+                if(linkValue==null){
+                    linkValue=document.getSelection().focusNode.innerText;
+                    if(linkValue==null||linkValue=='')
+                        linkValue=linkInput.value;
+                }
+                document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'</span></a>&nbsp;');
             }
             linkInput.value='';
             linkInput.style.display='none';
