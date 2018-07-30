@@ -12,24 +12,25 @@
             background: linear-gradient(to right,blue,red);
         }
         .postBox{
-            width:60%;
+            width:75%;
             margin:auto;
             border:1px white solid;
             border-radius: 0.5em;
             background: white;
-            padding:2em;
+            padding:1em 2em 2em 2em;
         }
         #title{
-            border:2px lightgray solid;
+            border:0 lightgray solid;
+            border-bottom-width: 1px;
             height: 50px;
             padding:0.5em;
             width:100%;
             font-size: 1.2em;
-            font-weight: bold;
+            /* font-weight: bold; */
             outline: none;
         }
         #post{
-            border:2px lightgray solid;
+            border:1px lightgray solid;
             min-height: 300px;
             padding:1em;
             outline:none;
@@ -56,7 +57,17 @@
             float:right;
             margin-right:10px;
         }
+        .headingBox{
+            width:75%;
+            margin:auto;
+            /* border:1px white solid;
+            border-radius: 0.3em;
+            background: rgba(22, 24, 56, 0.452); */
+            padding:0.5em;
+            margin-bottom: 0.5em;
+        }
         .heading1{
+            font-size:1.2em;
             color:white;
         }
         .linkInput{
@@ -67,16 +78,27 @@
 <!-- =========================================================================================== -->
 <body>
     
-    <!-- page -->
-    <div class="socialMedia">
-        <a href="#"><img src="image/icon-facebook.svg"  height="30px"alt="social-media-icon"><br></a>
-        <a href="#"><img src="image/icon-google.svg"    height="30px"alt="social-media-icon"><br></a>
-        <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
-        <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
-    </div>
+<!-- page -->
     
-    <div class="container mainBox mt-5">
-        <h3 class="heading1 text-center">Share Your Experience With Us...</h3>
+    <!-- navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand container" href="#">
+            Mjesto
+        </a>
+    </nav>
+    <!-- /navbar -->
+
+    <!-- content -->
+    <div class="container mainBox mt-3">
+
+        <div class="socialMedia">
+            <a href="#"><img src="image/icon-facebook.svg"  height="30px"alt="social-media-icon"><br></a>
+            <a href="#"><img src="image/icon-google.svg"    height="30px"alt="social-media-icon"><br></a>
+            <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
+            <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
+        </div>
+
+        <div class="headingBox"><span class="heading1">Share Your Experience With Us...</span></div>
         <div class="postBox">
             <input id="title" contenteditable="true" placeholder="Title"></input>
             <div class="row">
@@ -91,9 +113,11 @@
                 </div>
             </div>
             <div id="post"contenteditable="true"></div>
+            <br><button class="btn btn-outline-secondary">&nbsp;&nbsp;Post&nbsp;&nbsp;</button>
         </div>
     </div>
-    <!-- /page -->
+    <!-- /content -->
+<!-- /page -->
 
 
 <!-- ============================================================================================ -->
@@ -126,7 +150,6 @@
                 }
                 else{
                     postBlur=true;
-                    console.log(postBlur);
                 }
             },0);
         });
@@ -171,7 +194,6 @@
             anchorOffset=s.anchorOffset;
             focusNode=s.focusNode;
             focusOffset=s.focusOffset;
-            console.log(anchorNode,anchorOffset,focusNode,focusOffset);
             },10);
             if(e){
                 if(e.which == 66 && e.ctrlKey){
@@ -187,20 +209,27 @@
         addLink.addEventListener('click',()=>{
             let temp=linkInput.style.display;
             if(temp=='inline'){
-                if(linkInput.value){
-                    post.focus();
-                    caretPosition();
-                    post.focus();
-                    document.execCommand('createLink',true,linkInput.value);
-                }
-                linkInput.value='';
-                linkInput.style.display='none';
+                linkInputClick();
             }
             if(temp==''||temp=='none'){
                 linkInput.style.display='inline';
                 linkInput.focus();
             }
         });
+        linkInput.addEventListener('keydown',(event)=>{
+            if(event.which==13)linkInputClick();
+        });
+        function linkInputClick(){
+            if(linkInput.value){
+                post.focus();
+                caretPosition();
+                post.focus();
+                document.execCommand('createLink',true,linkInput.value);
+                document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+document.getSelection().focusNode.nodeValue+'</span></a>&nbsp;');
+            }
+            linkInput.value='';
+            linkInput.style.display='none';
+        }
         </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
