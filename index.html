@@ -7,81 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create Post</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <style>
-        body{
-            background: linear-gradient(to right,blue,red);
-        }
-        .postBox{
-            width:75%;
-            margin:auto;
-            border:1px white solid;
-            border-radius: 0.5em;
-            background: white;
-            padding:1em 2em 2em 2em;
-        }
-        #title{
-            border:0 lightgray solid;
-            border-bottom-width: 1px;
-            height: 50px;
-            padding:0.5em;
-            width:100%;
-            font-size: 1.2em;
-            /* font-weight: bold; */
-            outline: none;
-        }
-        #post{
-            border:1px lightgray solid;
-            min-height: 300px;
-            padding:1em;
-            outline:none;
-        }
-        .formatButtons{
-            background:white;
-            margin:10px 0;
-            width:30px;
-            border:1px solid white;
-            padding: 0;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        .selected{
-            color:rgb(0, 183, 255);
-            border:1px solid lightgray;
-        }
-        .formatButtons:hover{
-            border:1px solid lightgray;
-        }
-        .socialMedia{
-            background: white;
-            padding:0.2em;
-            border-radius: 0.4em;
-            float:right;
-            margin-right:10px;
-        }
-        .headingBox{
-            width:75%;
-            margin:auto;
-            /* border:1px white solid;
-            border-radius: 0.3em;
-            background: rgba(22, 24, 56, 0.452); */
-            padding:0.5em;
-            margin-bottom: 0.5em;
-        }
-        .heading1{
-            font-size:1.2em;
-            color:white;
-        }
-        .linkInput{
-            display:none
-        }
-        .selectedTextPost{
-            background: lightgray;
-        }
-    </style>
+    <link rel="stylesheet" href="createpost.css">
 </head>
-<!-- =========================================================================================== -->
 <body>
-    
-<!-- page -->
     
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
@@ -120,140 +48,14 @@
         </div>
     </div>
     <!-- /content -->
-<!-- /page -->
-
 
 <!-- ============================================================================================ -->
 
-
     <!-- scripts -->
-    <script>
-        // do NOT touch this code unless you are absolutely sure what you are doing!
-
-        var bold=document.querySelector('#bold');
-        var italic=document.querySelector('#italic');
-        var post=document.querySelector('#post');
-        var title=document.querySelector('#title');
-        var addLink=document.querySelector('#addLink');
-        var linkInput=document.querySelector('.linkInput');
-
-        post.focus();
-        var anchorNode=window.getSelection().anchorNode;
-        var anchorOffset=0;
-        var focusNode=window.getSelection().anchorNode;
-        var focusOffset=0;
-        title.focus();
-        
-        //buttons
-        var postBlur=false;
-        post.addEventListener('blur',()=>{
-            setTimeout(()=>{
-                if(bold==document.activeElement||italic==document.activeElement){
-                    postBlur=false;
-                }
-                else{
-                    postBlur=true;
-                }
-            },0);
-        });
-        bold.addEventListener('click',function(){
-            if(postBlur)
-                caretPosition();
-            post.focus();
-            bold.classList.toggle('selected');
-            document.execCommand('bold');
-        });
-        italic.addEventListener('click',function(){
-            if(postBlur)
-                caretPosition();
-            post.focus();
-            italic.classList.toggle('selected');
-            document.execCommand('italic');
-        });
-        function caretPosition(){
-            var s=window.getSelection();
-            s.collapse(anchorNode,anchorOffset);
-            s.extend(focusNode,focusOffset);
-            postBlur=false;
-        }
-
-        //post
-        post.addEventListener('keydown',buttonSelection);
-        post.addEventListener('focus',buttonSelection);
-        post.addEventListener('click',buttonSelection);
-        function buttonSelection(e){
-            setTimeout(() => {
-            if(document.queryCommandState("bold"))
-                bold.classList.toggle('selected',true);
-            else
-                bold.classList.toggle('selected',false);
-            if(document.queryCommandState("italic"))
-                italic.classList.toggle('selected',true);
-            else
-                italic.classList.toggle('selected',false);
-            
-            var s=window.getSelection();
-            anchorNode=s.anchorNode;
-            anchorOffset=s.anchorOffset;
-            focusNode=s.focusNode;
-            focusOffset=s.focusOffset;
-            },10);
-            if(e){
-                if(e.which == 66 && e.ctrlKey){
-                    bold.classList.toggle('selected');
-                }
-                if(e.which == 73 && e.ctrlKey){
-                    italic.classList.toggle('selected');
-                }
-            }
-        }
-        // ----------------------------------------
-        
-        addLink.addEventListener('click',()=>{
-            let temp=linkInput.style.display;
-            if(temp=='inline'){
-                linkInputClick();
-            }
-            if(temp==''||temp=='none'){
-                linkInput.style.display='inline';
-                s=document.getSelection();
-                var range = s.getRangeAt(0);
-                var newNode = document.createElement("span");
-                newNode.setAttribute('class','selectedTextPost');
-                range.surroundContents(newNode);
-                var s=window.getSelection();
-                anchorNode=s.anchorNode;
-                anchorOffset=s.anchorOffset;
-                focusNode=s.focusNode;
-                focusOffset=s.focusOffset;
-                linkInput.focus();
-            }
-        });
-        linkInput.addEventListener('keydown',(event)=>{
-            if(event.which==13)linkInputClick();
-        });
-        function linkInputClick(){
-            if(linkInput.value){
-                post.focus();
-                caretPosition();
-                post.focus();
-                document.execCommand('createLink',true,linkInput.value);
-                var linkValue=document.getSelection().focusNode.nodeValue;
-                if(linkValue==null){
-                    linkValue=document.getSelection().focusNode.innerText;
-                    if(linkValue==null||linkValue=='')
-                        linkValue=linkInput.value;
-                }
-                document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'</span></a>&nbsp;');
-            }
-            linkInput.value='';
-            linkInput.style.display='none';
-        }
-        </script>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="createpost.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <!-- /scripts -->
 </body>
 </html>
