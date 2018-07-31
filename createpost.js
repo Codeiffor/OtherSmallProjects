@@ -100,7 +100,8 @@ addLink.addEventListener('click',()=>{
     }
 });
 linkInput.addEventListener('keydown',(event)=>{
-    if(event.which==13)linkInputClick();
+    if(event.which==13)
+        setTimeout(linkInputClick,0);
 });
 function linkInputClick(){
     if(linkInput.value){
