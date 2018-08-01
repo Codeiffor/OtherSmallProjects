@@ -13,29 +13,37 @@
     
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand container" href="#">
-            Mjesto
-        </a>
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                Mjesto
+            </a>
+        </div>
     </nav>
     <!-- /navbar -->
 
     <!-- content -->
     <div class="container mainBox mt-3">
-
-        <div class="socialMedia">
-            <a href="#"><img src="image/icon-facebook.svg"  height="30px"alt="social-media-icon"><br></a>
-            <a href="#"><img src="image/icon-google.svg"    height="30px"alt="social-media-icon"><br></a>
-            <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
-            <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
-        </div>
-
         <div class="headingBox"><span class="heading1">Share Your Experience With Us...</span></div>
+        <div class="socialMedia dropdown">
+            <a id="dropdownMenuButton" data-toggle="dropdown">
+                <img src="image/icon-down-arrow.png"  height="30px"alt="social-media-icon">
+            </a>
+            <div class="dropdown-menu" style="min-width:0;padding:0;background:transparent;border:none;margin-top: 10px" aria-labelledby="dropdownMenuButton">
+                <a href="#"><img src="image/icon-facebook.svg"  height="30px"alt="social-media-icon"><br></a>
+                <a href="#"><img src="image/icon-google.svg"    height="30px"alt="social-media-icon"><br></a>
+                <a href="#"><img src="image/icon-twitter.svg"   height="30px"alt="social-media-icon"><br></a>
+                <a href="#"><img src="image/icon-instagram.svg" height="30px"alt="social-media-icon"><br></a>
+            </div>
+        </div>
         <div class="postBox">
             <input id="title" contenteditable="true" placeholder="Title"></input>
             <div class="row">
                 <div class="col-4">
                     <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
                     <button id='italic' type="button" class="formatButtons"><em>I</em></button>
+                    <button id='underline' type="button" class="formatButtons"><u>U</u></button>
+                    <button id='size1' type="button" class="formatButtons">H1</button>
+                    <button id='size2' type="button" class="formatButtons">H2</button>
                 </div>
                 <div class="col-8 text-right">
                     <input type="text" class="linkInput" placeholder="Enter Link Here">

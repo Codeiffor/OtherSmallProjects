@@ -41,11 +41,8 @@ body{
     border:1px solid lightgray;
 }
 .socialMedia{
-    background: white;
-    padding:0.2em;
-    border-radius: 0.4em;
     float:right;
-    margin-right:10px;
+    margin-right:9%;
 }
 .headingBox{
     width:75%;

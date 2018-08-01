@@ -2,6 +2,9 @@
 
 var bold=document.querySelector('#bold');
 var italic=document.querySelector('#italic');
+var underline=document.querySelector('#underline');
+var size1=document.querySelector('#size1');
+var size2=document.querySelector('#size2');
 var post=document.querySelector('#post');
 var title=document.querySelector('#title');
 var addLink=document.querySelector('#addLink');
@@ -18,7 +21,7 @@ title.focus();
 var postBlur=false;
 post.addEventListener('blur',()=>{
     setTimeout(()=>{
-        if(bold==document.activeElement||italic==document.activeElement){
+        if(bold==document.activeElement||italic==document.activeElement||underline==document.activeElement||size1==document.activeElement||size2==document.activeElement){
             postBlur=false;
         }
         else{
@@ -39,6 +42,33 @@ italic.addEventListener('click',function(){
     post.focus();
     italic.classList.toggle('selected');
     document.execCommand('italic');
+});
+underline.addEventListener('click',function(){
+    if(postBlur)
+        caretPosition();
+    post.focus();
+    underline.classList.toggle('selected');
+    document.execCommand('underline');
+});
+size1.addEventListener('click',function(){
+    if(postBlur)
+        caretPosition();
+    post.focus();
+    size1.classList.toggle('selected');
+    if(size1.classList.contains('selected'))
+        document.execCommand('formatBlock',false,'<h4>');
+    else
+        document.execCommand('formatBlock',false,'div');
+});
+size2.addEventListener('click',function(){
+    if(postBlur)
+        caretPosition();
+    post.focus();
+    size2.classList.toggle('selected');
+    if(size2.classList.contains('selected'))
+        document.execCommand('formatBlock',false,'<h5>');
+    else
+        document.execCommand('formatBlock',false,'div');
 });
 function caretPosition(){
     var s=window.getSelection();
@@ -61,8 +91,22 @@ function buttonSelection(e){
         italic.classList.toggle('selected',true);
     else
         italic.classList.toggle('selected',false);
+    if(document.queryCommandState("underline"))
+        underline.classList.toggle('selected',true);
+    else
+        underline.classList.toggle('selected',false);
+
+    var parentNode=window.getSelection().anchorNode;
+    if(parentNode.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H4")
+        size1.classList.toggle('selected',true);
+    else
+        size1.classList.toggle('selected',false);
+    if(parentNode.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H5")
+        size2.classList.toggle('selected',true);
+    else
+        size2.classList.toggle('selected',false);
     
-    var s=window.getSelection();
+    var s=window.getSelection();    
     anchorNode=s.anchorNode;
     anchorOffset=s.anchorOffset;
     focusNode=s.focusNode;
