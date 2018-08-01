@@ -1,5 +1,7 @@
 body{
-    background: linear-gradient(to right,blue,red);
+    /* background: linear-gradient(to right, #0575e6, #021b79); */
+    /* background: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
+    background: linear-gradient(to right, #040213, #121269, #0f1044);
 }
 .postBox{
     width:75%;
