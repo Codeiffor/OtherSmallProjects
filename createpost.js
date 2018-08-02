@@ -119,6 +119,9 @@ function buttonSelection(e){
         if(e.which == 73 && e.ctrlKey){
             italic.classList.toggle('selected');
         }
+        if(e.which == 85 && e.ctrlKey){
+            underline.classList.toggle('selected');
+        }
     }
 }
 // ----------------------------------------
