@@ -8,7 +8,6 @@ var size2=document.querySelector('#size2');
 var post=document.querySelector('#post');
 var title=document.querySelector('#title');
 var addLink=document.querySelector('#addLink');
-var linkInput=document.querySelector('.linkInput');
 
 post.focus();
 var anchorNode=window.getSelection().anchorNode;
@@ -126,43 +125,123 @@ function buttonSelection(e){
 }
 // ----------------------------------------
 
-addLink.addEventListener('click',()=>{
-    let temp=linkInput.style.display;
-    if(temp=='inline'){
-        linkInputClick();
-    }
-    if(temp==''||temp=='none'){
-        linkInput.style.display='inline';
+addLink.addEventListener('click',()=>{if(postBlur)
+    setTimeout(()=>{
         s=document.getSelection();
         var range = s.getRangeAt(0);
-        var newNode = document.createElement("span");
-        newNode.setAttribute('class','selectedTextPost');
-        range.surroundContents(newNode);
-        var s=window.getSelection();
-        anchorNode=s.anchorNode;
-        anchorOffset=s.anchorOffset;
-        focusNode=s.focusNode;
-        focusOffset=s.focusOffset;
-        linkInput.focus();
-    }
+        var linkValue=s.toString();
+        var linkInput=$(range.startContainer.parentNode).find('div.linkInput');
+        if(!linkInput.length){
+                anchorNode=s.anchorNode;
+                anchorOffset=s.anchorOffset;
+                // focusNode=s.focusNode;
+                // focusOffset=s.focusOffset;
+
+                range.deleteContents();
+
+                var newNode = document.createElement("input");
+                newNode.setAttribute('placeholder','Text');
+                newNode.setAttribute('value',linkValue);
+                newNode.setAttribute('style','margin:10px;width:210px');
+
+                var newNode4 = document.createElement("input");
+                newNode4.setAttribute('placeholder','Link');
+                newNode4.setAttribute('value','https://');
+                newNode4.setAttribute('style','margin:0 10px 10px 10px;width:210px');
+
+                var newNode5=document.createElement('button');
+                newNode5.setAttribute('class','btn-outline-light linkApply');
+                newNode5.setAttribute('style','width:100px;color:green;border:1px solid lightgray');
+                var newNode6=document.createTextNode('Apply');
+
+
+                var newNode3=document.createElement('div');
+                newNode3.setAttribute('class','linkInput');
+                newNode3.setAttribute('style','border:1px solid lightgray;background:white;width:340px');
+
+                var newNode1 = document.createElement("span");
+                newNode1.setAttribute('contenteditable','false');
+                newNode1.setAttribute('class','selectedTextPost');
+                var newNode2 = document.createTextNode(linkValue);
+                
+                range.surroundContents(newNode);
+                range.surroundContents(newNode3);
+                newNode3.appendChild(newNode4);
+                newNode3.appendChild(newNode5);
+                newNode5.appendChild(newNode6);
+                range.surroundContents(newNode1);
+                newNode1.appendChild(newNode2);
+
+                var linkInput=$(range.startContainer).find('.linkInput');
+                linkInput[0].style.display='inline';
+
+                $(range.startContainer).find('button')[0].addEventListener('click',()=>{
+                    var range1 = document.createRange();
+                    // console.log($(range.startContainer).find('.selectedTextPost'));
+                    range1.selectNode($(range.startContainer).find('.selectedTextPost')[0]);                    
+                    
+                    var title=$(range1.startContainer).find('input')[0].value;
+                    var link=$(range1.startContainer).find('input')[1].value;
+
+                    range1.deleteContents();
+                    
+                    var newNode = document.createElement("a");
+                    newNode.setAttribute('contenteditable','false');
+                    newNode.setAttribute('href',link);
+                    newNode.setAttribute('target','_blank');
+                    var newNode1 = document.createTextNode(title);
+
+                    range1.insertNode(newNode);
+                    newNode.appendChild(newNode1);
+                });
+                $(range.startContainer).find('input')[0].focus();
+            }
+            else{
+                range.deleteContents();
+                var newNode = document.createElement('span');
+                var newNode1 = document.createTextNode(linkValue);
+                range.surroundContents(newNode);
+                newNode.appendChild(newNode1);
+            }
+        // else{
+        //     if(linkInput[0].style.display==='inline'){
+        //         linkInput[0].style.display='none';
+        //     }
+        //     else{
+        //         linkInput[0].style.display='inline';
+        //     }
+        // }
+    },0);
 });
-linkInput.addEventListener('keydown',(event)=>{
-    if(event.which==13)
-        setTimeout(linkInputClick,0);
-});
+// linkInput.addEventListener('keydown',(event)=>{
+//     if(event.which==13)
+//         setTimeout(linkInputClick,0);
+// });
 function linkInputClick(){
     if(linkInput.value){
         post.focus();
         caretPosition();
         post.focus();
-        document.execCommand('createLink',true,linkInput.value);
-        var linkValue=document.getSelection().focusNode.nodeValue;
-        if(linkValue==null){
-            linkValue=document.getSelection().focusNode.innerText;
-            if(linkValue==null||linkValue=='')
-                linkValue=linkInput.value;
-        }
-        document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'</span></a>&nbsp;');
+
+
+        s=document.getSelection();
+        var range = s.getRangeAt(0);
+        var newNode = document.createElement("a");
+        newNode.setAttribute('href',linkInput.value);
+        newNode.setAttribute('target','_blank');
+        newNode.setAttribute('contenteditable','false');
+        newNode.setAttribute('class','postLink');
+        range.surroundContents(newNode);
+
+
+        // document.execCommand('createLink',true,linkInput.value);
+        // var linkValue=document.getSelection().focusNode.nodeValue;
+        // if(linkValue==null){
+        //     linkValue=document.getSelection().focusNode.innerText;
+        //     if(linkValue==null||linkValue=='')
+        //         linkValue=linkInput.value;
+        // }
+        // document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'</span></a>&nbsp;');
     }
     linkInput.value='';
     linkInput.style.display='none';

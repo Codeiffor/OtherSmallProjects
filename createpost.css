@@ -60,8 +60,15 @@ body{
     color:white;
 }
 .linkInput{
-    display:none
+    display:none;
+    position: absolute;
+    top:20px;
 }
 .selectedTextPost{
     background: lightgray;
+    position: relative;
+}
+.postLink .selectedTextPost{
+    color:blue;
+    background: none;
 }
