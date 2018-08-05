@@ -59,6 +59,8 @@ body{
     font-size:1.2em;
     color:white;
 }
+
+/* don't change this */
 .linkInput{
     display:none;
     position: absolute;
@@ -68,7 +70,15 @@ body{
     background: lightgray;
     position: relative;
 }
-.postLink .selectedTextPost{
-    color:blue;
-    background: none;
+.editLinkDiv{
+    position: absolute;
+    top:20px;
+    display: none;
+    padding:10px;
 }
+.linkText{
+    color: mediumblue;
+    position: relative;
+    cursor: pointer;
+}
+/* ----------------- */

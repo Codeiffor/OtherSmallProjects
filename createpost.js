@@ -132,77 +132,107 @@ addLink.addEventListener('click',()=>{if(postBlur)
         var linkValue=s.toString();
         var linkInput=$(range.startContainer.parentNode).find('div.linkInput');
         if(!linkInput.length){
-                anchorNode=s.anchorNode;
-                anchorOffset=s.anchorOffset;
-                // focusNode=s.focusNode;
-                // focusOffset=s.focusOffset;
+            anchorNode=s.anchorNode;
+            anchorOffset=s.anchorOffset;
+            // focusNode=s.focusNode;
+            // focusOffset=s.focusOffset;
 
-                range.deleteContents();
+            range.deleteContents();
 
-                var newNode = document.createElement("input");
-                newNode.setAttribute('placeholder','Text');
-                newNode.setAttribute('value',linkValue);
-                newNode.setAttribute('style','margin:10px;width:210px');
+            var newNode = document.createElement("input");
+            newNode.setAttribute('placeholder','Text');
+            newNode.setAttribute('value',linkValue);
+            newNode.setAttribute('style','margin:10px;width:210px');
 
-                var newNode4 = document.createElement("input");
-                newNode4.setAttribute('placeholder','Link');
-                newNode4.setAttribute('value','https://');
-                newNode4.setAttribute('style','margin:0 10px 10px 10px;width:210px');
+            var newNode4 = document.createElement("input");
+            newNode4.setAttribute('placeholder','Link');
+            newNode4.setAttribute('value','https://');
+            newNode4.setAttribute('style','margin:0 10px 10px 10px;width:210px');
 
-                var newNode5=document.createElement('button');
-                newNode5.setAttribute('class','btn-outline-light linkApply');
-                newNode5.setAttribute('style','width:100px;color:green;border:1px solid lightgray');
-                var newNode6=document.createTextNode('Apply');
+            var newNode5=document.createElement('button');
+            newNode5.setAttribute('class','btn-outline-light linkApply');
+            newNode5.setAttribute('style','width:100px;color:green;border:1px solid lightgray');
+            var newNode6=document.createTextNode('Apply');
 
 
-                var newNode3=document.createElement('div');
-                newNode3.setAttribute('class','linkInput');
-                newNode3.setAttribute('style','border:1px solid lightgray;background:white;width:340px');
+            var newNode3=document.createElement('div');
+            newNode3.setAttribute('class','linkInput');
+            newNode3.setAttribute('style','border:1px solid lightgray;background:white;width:340px');
 
-                var newNode1 = document.createElement("span");
-                newNode1.setAttribute('contenteditable','false');
-                newNode1.setAttribute('class','selectedTextPost');
-                var newNode2 = document.createTextNode(linkValue);
+            var newNode1 = document.createElement("span");
+            newNode1.setAttribute('contenteditable','false');
+            newNode1.setAttribute('class','selectedTextPost');
+            var newNode2 = document.createTextNode(linkValue);
+            
+            range.surroundContents(newNode);
+            range.surroundContents(newNode3);
+            newNode3.appendChild(newNode4);
+            newNode3.appendChild(newNode5);
+            newNode5.appendChild(newNode6);
+            range.surroundContents(newNode1);
+            newNode1.appendChild(newNode2);
+
+            var linkInput=$(range.startContainer).find('.linkInput');
+            linkInput[0].style.display='inline';
+
+            // ---------------------------------------------------------------------
+            
+            $(range.startContainer).find('button')[0].addEventListener('click',()=>{
+                var range1 = document.createRange();
+                range1.selectNode($(range.startContainer).find('.selectedTextPost')[0]);                    
                 
-                range.surroundContents(newNode);
-                range.surroundContents(newNode3);
-                newNode3.appendChild(newNode4);
-                newNode3.appendChild(newNode5);
+                var title=$(range1.startContainer).find('input')[0].value;
+                var link=$(range1.startContainer).find('input')[1].value;
+
+                range1.deleteContents();
+                
+                var newNode = document.createElement("span");
+                newNode.setAttribute('contenteditable','false');
+                newNode.setAttribute('class','linkText');
+                newNode.setAttribute('onclick','linkTextClick(this);');
+
+                var newNode1=document.createElement('div');
+                newNode1.setAttribute('class','editLinkDiv');
+                newNode1.setAttribute('style','border:1px solid lightgray;background:white;min-width:200px');
+
+                var newNode2=document.createElement('a');
+                newNode2.setAttribute('href',link);
+                newNode2.setAttribute('target','_blank');
+
+                var newNode3 = document.createTextNode(title);
+                var newNode4 = document.createTextNode(link);
+
+                var newNode5 = document.createElement('span');
+                newNode5.setAttribute('class','editLink');
+                newNode5.setAttribute('onclick','editLinkClick(this);');
+                newNode5.setAttribute('style','color:green;padding:5px');
+                var newNode6 = document.createTextNode('Edit');
+
+                var newNode7 = document.createElement('span');
+                newNode7.setAttribute('class','removeLink');
+                newNode7.setAttribute('onclick','removeLinkClick(this);');
+                newNode7.setAttribute('style','color:red;padding:5px');
+                var newNode8 = document.createTextNode('Remove');
+
+                range1.surroundContents(newNode2);
+                range1.surroundContents(newNode1);
+                newNode2.appendChild(newNode4);
+                newNode1.appendChild(newNode5);
+                newNode1.appendChild(newNode7);
                 newNode5.appendChild(newNode6);
-                range.surroundContents(newNode1);
-                newNode1.appendChild(newNode2);
-
-                var linkInput=$(range.startContainer).find('.linkInput');
-                linkInput[0].style.display='inline';
-
-                $(range.startContainer).find('button')[0].addEventListener('click',()=>{
-                    var range1 = document.createRange();
-                    // console.log($(range.startContainer).find('.selectedTextPost'));
-                    range1.selectNode($(range.startContainer).find('.selectedTextPost')[0]);                    
-                    
-                    var title=$(range1.startContainer).find('input')[0].value;
-                    var link=$(range1.startContainer).find('input')[1].value;
-
-                    range1.deleteContents();
-                    
-                    var newNode = document.createElement("a");
-                    newNode.setAttribute('contenteditable','false');
-                    newNode.setAttribute('href',link);
-                    newNode.setAttribute('target','_blank');
-                    var newNode1 = document.createTextNode(title);
-
-                    range1.insertNode(newNode);
-                    newNode.appendChild(newNode1);
-                });
-                $(range.startContainer).find('input')[0].focus();
-            }
-            else{
-                range.deleteContents();
-                var newNode = document.createElement('span');
-                var newNode1 = document.createTextNode(linkValue);
-                range.surroundContents(newNode);
-                newNode.appendChild(newNode1);
-            }
+                newNode7.appendChild(newNode8);
+                range1.surroundContents(newNode);
+                newNode.appendChild(newNode3);
+            });
+            $(range.startContainer).find('input')[0].focus();
+        }
+        else{
+            range.deleteContents();
+            var newNode = document.createElement('span');
+            var newNode1 = document.createTextNode(linkValue);
+            range.surroundContents(newNode);
+            newNode.appendChild(newNode1);
+        }
         // else{
         //     if(linkInput[0].style.display==='inline'){
         //         linkInput[0].style.display='none';
@@ -213,10 +243,43 @@ addLink.addEventListener('click',()=>{if(postBlur)
         // }
     },0);
 });
-// linkInput.addEventListener('keydown',(event)=>{
-//     if(event.which==13)
-//         setTimeout(linkInputClick,0);
-// });
+function linkTextClick(obj){
+    temp=obj.childNodes[0].style.display;
+    if(temp===''||temp=='none'){
+        obj.childNodes[0].style.display='inline';
+    }
+    if(temp==='inline')
+        obj.childNodes[0].style.display='none';
+}
+
+function editLinkClick(obj){
+    var range1 = document.createRange();
+    range1.selectNode($(obj)[0].parentNode);
+    
+    let link1=$(range1.startContainer).find('a')[0].innerText;
+    let title1=$(range1.startContainer)[0].childNodes[1].nodeValue;
+    console.log(title1,link1);
+    
+
+    var range2 = document.createRange();
+    range2.selectNode($(obj)[0].parentNode.parentNode);
+    range2.deleteContents();
+
+    var newNode = document.createElement('span');
+    var newNode1 = document.createTextNode(title1);
+    range2.surroundContents(newNode);
+    newNode.appendChild(newNode1);
+
+    
+    console.log(document.getSelection());
+    
+    $(addLink).click();
+}
+
+function removeLinkClick(obj){
+
+}
+
 function linkInputClick(){
     if(linkInput.value){
         post.focus();
