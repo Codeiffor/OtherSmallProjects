@@ -20,7 +20,8 @@ title.focus();
 var postBlur=false;
 post.addEventListener('blur',()=>{
     setTimeout(()=>{
-        if(bold==document.activeElement||italic==document.activeElement||underline==document.activeElement||size1==document.activeElement||size2==document.activeElement){
+        if(bold==document.activeElement||italic==document.activeElement||underline==document.activeElement||
+            size1==document.activeElement||size2==document.activeElement){
             postBlur=false;
         }
         else{
@@ -96,11 +97,15 @@ function buttonSelection(e){
         underline.classList.toggle('selected',false);
 
     var parentNode=window.getSelection().anchorNode;
-    if(parentNode.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H4")
+    if(parentNode.parentElement.nodeName==="H4"||parentNode.parentElement.parentElement.nodeName==="H4"||
+        parentNode.parentElement.parentElement.parentElement.nodeName==="H4"||
+        parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H4")
         size1.classList.toggle('selected',true);
     else
         size1.classList.toggle('selected',false);
-    if(parentNode.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H5")
+    if(parentNode.parentElement.nodeName==="H5"||parentNode.parentElement.parentElement.nodeName==="H5"||
+        parentNode.parentElement.parentElement.parentElement.nodeName==="H5"||
+        parentNode.parentElement.parentElement.parentElement.parentElement.nodeName==="H5")
         size2.classList.toggle('selected',true);
     else
         size2.classList.toggle('selected',false);
@@ -125,11 +130,20 @@ function buttonSelection(e){
 }
 // ----------------------------------------
 
+var linkValue;
+var linkAdd='';
+
 addLink.addEventListener('click',()=>{if(postBlur)
     setTimeout(()=>{
         s=document.getSelection();
         var range = s.getRangeAt(0);
-        var linkValue=s.toString();
+
+        var temp=s.toString();
+        if(temp!='')
+            linkValue=temp;
+        if(linkAdd=='')
+            linkAdd='https://';
+
         var linkInput=$(range.startContainer.parentNode).find('div.linkInput');
         if(!linkInput.length){
             anchorNode=s.anchorNode;
@@ -146,7 +160,7 @@ addLink.addEventListener('click',()=>{if(postBlur)
 
             var newNode4 = document.createElement("input");
             newNode4.setAttribute('placeholder','Link');
-            newNode4.setAttribute('value','https://');
+            newNode4.setAttribute('value',linkAdd);
             newNode4.setAttribute('style','margin:0 10px 10px 10px;width:210px');
 
             var newNode5=document.createElement('button');
@@ -241,6 +255,8 @@ addLink.addEventListener('click',()=>{if(postBlur)
         //         linkInput[0].style.display='inline';
         //     }
         // }
+        linkValue='';
+        linkAdd='';
     },0);
 });
 function linkTextClick(obj){
@@ -256,56 +272,57 @@ function editLinkClick(obj){
     var range1 = document.createRange();
     range1.selectNode($(obj)[0].parentNode);
     
-    let link1=$(range1.startContainer).find('a')[0].innerText;
-    let title1=$(range1.startContainer)[0].childNodes[1].nodeValue;
-    console.log(title1,link1);
-    
+    linkAdd=$(range1.startContainer).find('a')[0].innerText;
+    linkValue=$(range1.startContainer)[0].childNodes[1].nodeValue;
 
     var range2 = document.createRange();
     range2.selectNode($(obj)[0].parentNode.parentNode);
     range2.deleteContents();
 
-    var newNode = document.createElement('span');
-    var newNode1 = document.createTextNode(title1);
-    range2.surroundContents(newNode);
-    newNode.appendChild(newNode1);
-
-    
-    console.log(document.getSelection());
+    // var newNode = document.createElement('span');
+    // newNode.setAttribute('contenteditable','false');
+    // newNode.setAttribute('class','selectedTextPost');
+    // var newNode1 = document.createTextNode(linkValue);
+    // range2.surroundContents(newNode);
+    // newNode.appendChild(newNode1);
     
     $(addLink).click();
 }
 
 function removeLinkClick(obj){
-
+    var range2 = document.createRange();
+    range2.selectNode($(obj)[0].parentNode.parentNode);
+    range2.deleteContents();
 }
 
-function linkInputClick(){
-    if(linkInput.value){
-        post.focus();
-        caretPosition();
-        post.focus();
+// function linkInputClick(){
+//     if(linkInput.value){
+//         post.focus();
+//         caretPosition();
+//         post.focus();
 
 
-        s=document.getSelection();
-        var range = s.getRangeAt(0);
-        var newNode = document.createElement("a");
-        newNode.setAttribute('href',linkInput.value);
-        newNode.setAttribute('target','_blank');
-        newNode.setAttribute('contenteditable','false');
-        newNode.setAttribute('class','postLink');
-        range.surroundContents(newNode);
+//         s=document.getSelection();
+//         var range = s.getRangeAt(0);
+//         var newNode = document.createElement("a");
+//         newNode.setAttribute('href',linkInput.value);
+//         newNode.setAttribute('target','_blank');
+//         newNode.setAttribute('contenteditable','false');
+//         newNode.setAttribute('class','postLink');
+//         range.surroundContents(newNode);
 
 
-        // document.execCommand('createLink',true,linkInput.value);
-        // var linkValue=document.getSelection().focusNode.nodeValue;
-        // if(linkValue==null){
-        //     linkValue=document.getSelection().focusNode.innerText;
-        //     if(linkValue==null||linkValue=='')
-        //         linkValue=linkInput.value;
-        // }
-        // document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false" style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'</span></a>&nbsp;');
-    }
-    linkInput.value='';
-    linkInput.style.display='none';
-}
+//         // document.execCommand('createLink',true,linkInput.value);
+//         // var linkValue=document.getSelection().focusNode.nodeValue;
+//         // if(linkValue==null){
+//         //     linkValue=document.getSelection().focusNode.innerText;
+//         //     if(linkValue==null||linkValue=='')
+//         //         linkValue=linkInput.value;
+//         // }
+//         // document.execCommand('insertHTML', false,'&nbsp;<a contenteditable="false"
+//         //   style="" href="'+linkInput.value+'" target="_blank"><span contenteditable="true">'+linkValue+'
+//         //   </span></a>&nbsp;');
+//     }
+//     linkInput.value='';
+//     linkInput.style.display='none';
+// }
