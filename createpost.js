@@ -326,3 +326,16 @@ function removeLinkClick(obj){
 //     linkInput.value='';
 //     linkInput.style.display='none';
 // }
+
+$(".socialMedia-button").click(function() {
+    $($('.socialMedia-icon')[0]).toggleClass('socialMedia-hidden');
+    setTimeout(()=>{
+        $($('.socialMedia-icon')[1]).toggleClass('socialMedia-hidden');
+    },125);
+    setTimeout(()=>{
+        $($('.socialMedia-icon')[2]).toggleClass('socialMedia-hidden');
+    },250);
+    setTimeout(()=>{
+        $($('.socialMedia-icon')[3]).toggleClass('socialMedia-hidden');
+    },375);
+  });

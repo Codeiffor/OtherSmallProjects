@@ -46,6 +46,28 @@ body{
     float:right;
     margin-right:9%;
 }
+.socialMedia-menu{
+    min-width:0;
+    padding:0;
+    background:transparent;
+    border:none;
+    margin-top: 10px;
+}
+.socialMedia-icon{
+    height: 30px;
+    padding-left:0;
+    padding-top: 0;
+    -webkit-transition: all 0.25s ease;  
+    -moz-transition: all 0.25s ease;  
+    -o-transition: all 0.25s ease;  
+    -ms-transition: all 0.25s ease;  
+    transition: all 0.25s ease;
+}
+.socialMedia-hidden{
+    padding-left:15px;
+    padding-top:15px;
+    height:0;
+}
 .headingBox{
     width:75%;
     margin:auto;
