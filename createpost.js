@@ -290,9 +290,18 @@ function editLinkClick(obj){
 }
 
 function removeLinkClick(obj){
+    var range1 = document.createRange();
+    range1.selectNode($(obj)[0].parentNode);
+    let text=$(range1.startContainer)[0].childNodes[1].nodeValue;
+
     var range2 = document.createRange();
     range2.selectNode($(obj)[0].parentNode.parentNode);
     range2.deleteContents();
+
+    var newNode = document.createElement('span');
+    var newNode1 = document.createTextNode(text);
+    range2.surroundContents(newNode);
+    newNode.appendChild(newNode1);
 }
 
 // function linkInputClick(){
