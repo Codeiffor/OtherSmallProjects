@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/createpost.css">
+</head>
+<body>
+    
+    <!-- navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                Blog
+            </a>
+        </div>
+    </nav>
+    <!-- /navbar -->
+
+    <!-- content -->
+    <div class="container mainBox mt-3">
+        <div class="headingBox"><span class="heading1">Edit Your Blog Here...</span></div>
+        <div class="socialMedia">
+            <div class="socialMedia-button" >
+                <img src="static/image/icon-share.svg"  height="22px"alt="social-media-icon">
+            </div>
+            <div class="socialMedia-menu">
+                <a href="#"><div style="min-width:30px;min-height:30px;"><img class="socialMedia-icon socialMedia-hidden" src="static/image/icon-facebook.svg"  alt="social-media-icon"></div></a>
+                <a href="#"><div style="min-width:30px;min-height:30px;"><img class="socialMedia-icon socialMedia-hidden" src="static/image/icon-google.svg"    alt="social-media-icon"></div></a>
+                <a href="#"><div style="min-width:30px;min-height:30px;"><img class="socialMedia-icon socialMedia-hidden" src="static/image/icon-twitter.svg"   alt="social-media-icon"></div></a>
+                <a href="#"><div style="min-width:30px;min-height:30px;"><img class="socialMedia-icon socialMedia-hidden" src="static/image/icon-instagram.svg" alt="social-media-icon"></div></a>
+            </div>
+        </div>
+        <div class="postBox">
+            <form action="post" method="POST">
+                <input id="title" contenteditable="true" placeholder="Title" type="text" name="title"></input>
+                    <div class="row">
+                        <div class="col-8">
+                            <button id='bold' type="button" class="formatButtons"><strong>B</strong></button>
+                            <button id='italic' type="button" class="formatButtons"><em>I</em></button>
+                            <button id='underline' type="button" class="formatButtons"><u>U</u></button>
+                            <button id='size1' type="button" class="formatButtons">H1</button>
+                            <button id='size2' type="button" class="formatButtons">H2</button>
+                        </div>
+                        <div class="col-4 text-right">
+                            <!-- <input type="text" class="linkInput" placeholder="Enter Link Here"> -->
+                            <button id='addLink' type="button" class="formatButtons"><img src="static/image/icon-addlink.svg" height="23px"alt="social-media-icon"></button>
+                            <button id='imageUpload' type="button" class="formatButtons"><img src="static/image/icon-camera.svg"   height="27px"alt="social-media-icon"></button>
+                        </div>
+                    </div>
+                <div id="post" contenteditable="true"></div><br>
+                <input id="hiddencontent" type="text" name="content" hidden>
+                <button type="submit" value="post" class="btn btn-outline-secondary">&nbsp;&nbsp;Post&nbsp;&nbsp;</button>
+            </form>
+        </div>
+    </div>
+    <!-- /content -->
+
+<!-- ============================================================================================ -->
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="static/createpost.js"></script>
+    <!-- /scripts -->
+</body>
+</html>

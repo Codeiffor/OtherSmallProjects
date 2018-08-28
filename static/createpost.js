@@ -8,6 +8,7 @@ var size2=document.querySelector('#size2');
 var post=document.querySelector('#post');
 var title=document.querySelector('#title');
 var addLink=document.querySelector('#addLink');
+var hiddencontent=document.querySelector('#hiddencontent');
 
 post.focus();
 var anchorNode=window.getSelection().anchorNode;
@@ -115,6 +116,8 @@ function buttonSelection(e){
     anchorOffset=s.anchorOffset;
     focusNode=s.focusNode;
     focusOffset=s.focusOffset;
+
+    hiddencontent.value=post.innerHTML;
     },10);
     if(e){
         if(e.which == 66 && e.ctrlKey){
